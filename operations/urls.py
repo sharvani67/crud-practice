@@ -1,8 +1,8 @@
 from django.urls import path
 from . import views
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
+from django.shortcuts import redirect
 
 urlpatterns = [
     path('operations/', login_required(views.operations), name='operations'),
@@ -25,6 +25,7 @@ urlpatterns = [
     path('view_contact/<int:id>/', views.view_contact, name='view_contact'),
     path('view_employee/<int:id>/', views.view_employee, name='view_employee'),
     path('view_student/<int:id>/', views.view_student, name='view_student'),
+    path('', lambda request: redirect('login/')),  # Redirect to the login page
     path('login/', views.login_view, name='login'),
     path('logout/', LogoutView.as_view(),name='logout'),
     path('register/', views.register, name='register'),
