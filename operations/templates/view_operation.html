@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Contact Details</h1>
+    <div class="card shadow-sm p-3 mb-5 bg-body rounded">
+        <div class="card-body">
+            <!-- Profile Picture Section -->
+            <div class="d-flex justify-content-center mb-4">
+                {% if contact.profile_picture %}
+                    <img src="{{ contact.profile_picture.url }}" 
+                         alt="Profile Picture" 
+                         class="rounded-circle border" 
+                         style="width: 150px; height: 150px; object-fit: cover;">
+                {% else %}
+                    <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" 
+                         alt="Default Icon" 
+                         class="rounded-circle border" 
+                         style="width: 150px; height: 150px; object-fit: cover;">
+                {% endif %}
+            </div>
+            <!-- Contact Details Section -->
+            <div class="text-center">
+                <h5 class="card-title text-primary mb-3">{{ contact.username }}</h5>
+                <p><strong>Mobile:</strong> {{ contact.mobile }}</p>
+                <p><strong>Email:</strong> {{ contact.email }}</p>
+                <p><strong>City:</strong> {{ contact.city }}</p>
+                <p><strong>Pancard:</strong> {{ contact.pancard }}</p>
+            </div>
+        </div>
+    </div>
+    <!-- Back Button -->
+    <div class="text-center">
+        <a href="{% url 'operation_list' %}" class="btn btn-secondary mt-3">Back to List</a>
+    </div>
+</div>
+{% endblock %}

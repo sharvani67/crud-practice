@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Card Layout -->
+                <div class="card shadow">
+                    <div class="card-header bg-dark text-white text-center">
+                        <h3>Create Contact</h3>
+                    </div>
+                    <div class="card-body">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-success">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <form method="post" enctype="multipart/form-data" action="{% url 'operations' %}">
+                            {% csrf_token %}
+                            <!-- Profile Picture -->
+                            <div class="mb-4 text-center">
+                                <label for="profilepicture" class="form-label">Profile Picture</label>
+                                <div class="profile-picture-wrapper">
+                                    <img id="profilePreview" 
+                                         src="https://cdn-icons-png.flaticon.com/512/847/847969.png" 
+                                         alt="Profile Picture" 
+                                         class="rounded-circle shadow-sm" 
+                                         style="width: 100px; height: 100px; object-fit: cover;">
+                                </div>
+                                <input type="file" id="profilepicture" name="profilepicture" 
+                                       class="form-control mt-3" accept="image/*" 
+                                       onchange="previewProfilePicture(event)">
+                            </div>
+
+                            <!-- JavaScript for Profile Picture Preview -->
+                            <script>
+                                function previewProfilePicture(event) {
+                                    const reader = new FileReader();
+                                    reader.onload = function() {
+                                        const preview = document.getElementById('profilePreview');
+                                        preview.src = reader.result;
+                                    }
+                                    reader.readAsDataURL(event.target.files[0]);
+                                }
+                            </script>
+
+                            <!-- Form Fields -->
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" id="username" name="username" class="form-control" placeholder="Enter Username" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="mobile" class="form-label">Mobile</label>
+                                    <input type="text" id="mobile" name="mobile" class="form-control" placeholder="Enter Mobile Number" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="city" class="form-label">City</label>
+                                    <input type="text" id="city" name="city" class="form-control" placeholder="Enter City" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="pancard" class="form-label">Pancard</label>
+                                    <input type="text" id="pancard" name="pancard" class="form-control" placeholder="Enter Pancard Number" required>
+                                </div>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="d-flex justify-content-center mt-4">
+                                <button type="submit" name="submit" value="save" class="btn btn-primary w-40" style="margin-right: 10px;">Save and Continue</button>
+                                <button type="submit" name="submit" value="submit" class="btn btn-success w-40">Submit</button>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
